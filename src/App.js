@@ -1,23 +1,30 @@
 import logo from './logo.svg';
 import './App.css';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
+import Main from './Component/Main';
+import { Toaster} from "react-hot-toast"
+import { useSelector } from 'react-redux';
 
 function App() {
+   const pageNumber = useSelector((state)=>state.car.pageNO)
+   console.log("pageNumber in App.js: ", pageNumber)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="  bg-gray-300">
+      <Router>
+      <Toaster/>
+        <Routes>
+          <Route>
+            <Route exact path={`/`} element={<Main />} />
+            <Route exact path={`/page/:${pageNumber}`} element={<Main />} />
+            
+
+          </Route>
+        </Routes>
+      </Router>
     </div>
   );
 }
